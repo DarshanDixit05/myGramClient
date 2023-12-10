@@ -16,8 +16,7 @@ import {
   } from '@chakra-ui/react'
   import {useNavigate} from "react-router-dom";
   import axios from "axios";
-  const BASE_URL = "http://localhost:1999/api/v1"
-
+  const BASE_URL="https://mygram-7suv.onrender.com/api/v1"
 function Signup() {
   const navigate = useNavigate();
   const [username, setUserName] = useState();
@@ -46,7 +45,7 @@ function Signup() {
     e.preventDefault();
     if(password.length>0 && confirmPassword.length>0 && password===confirmPassword){
       try {
-        const response = await axios.post(BASE_URL+"/signup", {username, email, password});
+        const response = await axios.post(process.env.BASE_URL+"/signup", {username, email, password});
         console.log(response);
       } catch (error) {
         console.log(error);
