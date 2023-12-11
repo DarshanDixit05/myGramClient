@@ -15,12 +15,12 @@ import {
   } from '@chakra-ui/react'
   import {useNavigate} from "react-router-dom";
   import {React, useState, useEffect, useContext} from 'react';
-  import {Id} from "../Context.js";
+  import {IdContext} from "../Context.js";
   import axios from 'axios';
-  const BASE_URL="https://mygram-7suv.onrender.com/api/v1"
+  const BASE_URL="http://localhost:1999/api/v1"
   
 function Authentication(){
-  const {setId} = useContext(Id);
+  const {setId, setForgotPasswordToken} = useContext(IdContext);
   const navigate = useNavigate();
   const [inputData, setInputData] = useState();
   const [password, setPassword] = useState();
@@ -29,7 +29,7 @@ function Authentication(){
     e.preventDefault();
     setInputData(e.target.value);
   }
-  
+
   const handlePassword = (e) =>{
     e.preventDefault();
     setPassword(e.target.value);
@@ -48,8 +48,15 @@ function Authentication(){
 
   const handleForgotPassword = async(e) =>{
     e.preventDefault();
+    if(!inputData){
+      alert("Enter username or email to continue.");
+      return;
+    }
     try {
-      
+      const response = await axios.post(BASE_URL+"/forgotPassword", {inputData});
+      console.log(response);
+      setForgotPasswordToken(response.data.data.forgotPasswordToken);
+      navigate("/resetPassword");
     } catch (error) {
       console.log(error);
     }

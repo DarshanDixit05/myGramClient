@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import SimpleSidebar from "../components/SimpleSidebar.js";
 import Post from "../components/Post.js";
+import {IdContext} from "../Context.js";
 
 function Main() {
+  const {id, setId} = useContext(IdContext)
   return (
     <div id="main_container">
       <SimpleSidebar />
