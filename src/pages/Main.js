@@ -10,17 +10,21 @@ const BASE_URL="http://localhost:1999/api/v1"
 function Main() {
   const {id, setId} = useContext(IdContext);
   const [search, setSearch] = useState("");
+  const [searchedUser, setSearchedUser] = useState([]);
 
   const debounceSearch = useDebounce(search, 500);
 
   useEffect(() => {
     const f = async()=>{
-      const response = await axios.get(BASE_URL+"/searchUser", {debounceSearch});
-
+      const response = await axios.get(BASE_URL+"/searchUser", {
+        params: {
+          name: debounceSearch,
+        }
+      });
       console.log(response);
+      setSearchedUser(response.data.data);
     }
     if(debounceSearch)f();
-    
   }, [debounceSearch])
 
   return (
@@ -30,6 +34,16 @@ function Main() {
         <div id="main_searcn_section">
           <Input id="search_bar" placeholder='Search User' onChange={(e)=>setSearch(e.target.value)}/>
         </div>
+        {searchedUser.length>0 && search !== "" ? (
+          <div class="user-container" id="user_container">
+            {searchedUser.map((ele) => (
+              <div class="user-profile" key={ele.id}>
+                <img class="user-avatar" src="https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*" alt={`${ele.username} Avatar`} />
+                <p>{ele.username}</p>
+              </div>
+            ))}
+          </div>
+        ):null}
         <div id="right-feed-section">
           <div id="content-section">
             <Post />
