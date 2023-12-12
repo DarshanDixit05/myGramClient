@@ -6,28 +6,27 @@
     width:1040px;
 }
 
-#main_story_section{
+#main_searcn_section{
     height:13%;
     width:100%;
     background-color:red;
+    padding:1rem;
+}
+
+#main_searcn_section #search_bar{
+    width:40%;
 }
 
 #right-feed-section{
     height:87%;
     width:100%;
-    display:flex;
 }
 
 #content-section{
     height:100%;
     max-height:100%;
-    overflow:scroll;
     background:blue;
-    width:65%;
-}
-
-#suggestion-section{
-    height:100%;
-    width:35%;
-    background-color:green;
+    width:100%;
+    display:flex;
+    justify-content:center
 }
