@@ -6,8 +6,9 @@ export const IdContext = createContext();
 const Context = ({ children }) => {
   const [id, setId] = useState(null);
   const [forgotPasswordToken, setForgotPasswordToken] = useState(null);
+  const [token, setToken] = useState(null);
 
-  return <IdContext.Provider value={{ id, setId, forgotPasswordToken, setForgotPasswordToken }}>{children}</IdContext.Provider>;
+  return <IdContext.Provider value={{ id, setId, forgotPasswordToken, setForgotPasswordToken, token, setToken }}>{children}</IdContext.Provider>;
 };
 
 export default Context;

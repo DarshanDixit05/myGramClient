@@ -20,7 +20,7 @@ import {
   const BASE_URL="http://localhost:1999/api/v1"
   
 function Authentication(){
-  const {setId, setForgotPasswordToken} = useContext(IdContext);
+  const {setId, setForgotPasswordToken, setToken} = useContext(IdContext);
   const navigate = useNavigate();
   const [inputData, setInputData] = useState();
   const [password, setPassword] = useState();
@@ -39,6 +39,7 @@ function Authentication(){
     e.preventDefault();
     try {
       const response = await axios.post(BASE_URL+"/login", {inputData, password});
+      setToken(response.data.token);
       setId(response.data.data._id);
       navigate("/main");
     } catch (error) {

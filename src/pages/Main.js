@@ -8,10 +8,10 @@ import axios from 'axios';
 const BASE_URL="http://localhost:1999/api/v1"
 
 function Main() {
-  const {id, setId} = useContext(IdContext);
+  const {id, setId, token} = useContext(IdContext);
   const [search, setSearch] = useState("");
   const [searchedUser, setSearchedUser] = useState([]);
-
+  console.log(id);
   const debounceSearch = useDebounce(search, 500);
 
   useEffect(() => {
@@ -21,10 +21,20 @@ function Main() {
           name: debounceSearch,
         }
       });
-      console.log(response);
       setSearchedUser(response.data.data);
     }
     if(debounceSearch)f();
+    // console.log(token);
+    const getPost = async() =>{
+      const response = await axios.get(BASE_URL+"/getPosts", {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response);
+    }
+    getPost();
   }, [debounceSearch])
 
   return (
@@ -45,6 +55,7 @@ function Main() {
           </div>
         ):null}
         <div id="right-feed-section">
+          {/* username, profile_image, image, caption, likeCount, commentscount */}
           <div id="content-section">
             <Post />
           </div>

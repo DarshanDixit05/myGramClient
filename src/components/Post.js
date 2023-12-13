@@ -17,7 +17,6 @@ function Post() {
             <Avatar size='md' name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
             <Box>
             <Heading size='sm'>Username</Heading>
-            <Text>Location</Text>
             </Box>
         </Flex>
         <IconButton
@@ -40,10 +39,11 @@ function Post() {
         </Button>
         <Button flex='1' mt='0' variant='ghost' leftIcon={<FiNavigation />}>
         </Button>
+        <Text>100 likes</Text>
         <Text>
-        With Chakra UI, I wanted to sync the speed of development with the speed
-        of design. I wanted the developer to be just as excited as the designer to
-        create a screen.
+            With Chakra UI, I wanted to sync the speed of development with the speed
+            of design. I wanted the developer to be just as excited as the designer to
+            create a screen.
         </Text>
     </CardBody>
     <CardFooter
