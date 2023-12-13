@@ -11,7 +11,6 @@ function Main() {
   const {id, setId, token} = useContext(IdContext);
   const [search, setSearch] = useState("");
   const [searchedUser, setSearchedUser] = useState([]);
-  console.log(id);
   const debounceSearch = useDebounce(search, 500);
 
   useEffect(() => {
@@ -24,7 +23,6 @@ function Main() {
       setSearchedUser(response.data.data);
     }
     if(debounceSearch)f();
-    // console.log(token);
     const getPost = async() =>{
       const response = await axios.get(BASE_URL+"/getPosts", {
         headers: {
@@ -32,7 +30,6 @@ function Main() {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
     }
     getPost();
   }, [debounceSearch])
