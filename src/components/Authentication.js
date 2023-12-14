@@ -14,13 +14,13 @@ import {
     Text,
   } from '@chakra-ui/react'
   import {useNavigate} from "react-router-dom";
-  import {React, useState, useEffect, useContext} from 'react';
-  import {IdContext} from "../Context.js";
+  import React, {useState, useEffect, useContext} from 'react';
+  // import {useIdContext} from "../Context.js";
   import axios from 'axios';
   const BASE_URL="http://localhost:1999/api/v1"
   
 function Authentication(){
-  const {setId, setForgotPasswordToken, setToken} = useContext(IdContext);
+  // const {setForgotPasswordToken, setToken} = useIdContext();
   const navigate = useNavigate();
   const [inputData, setInputData] = useState();
   const [password, setPassword] = useState();
@@ -39,9 +39,8 @@ function Authentication(){
     e.preventDefault();
     try {
       const response = await axios.post(BASE_URL+"/login", {inputData, password});
-      setToken(response.data.token);
-      setId(response.data.data._id);
-      navigate("/main");
+      console.log(response.data.token);
+      // setToken(response.data.token)
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +55,7 @@ function Authentication(){
     try {
       const response = await axios.post(BASE_URL+"/forgotPassword", {inputData});
       console.log(response);
-      setForgotPasswordToken(response.data.data.forgotPasswordToken);
+      // setForgotPasswordToken(response.data.data.forgotPasswordToken);
       navigate("/resetPassword");
     } catch (error) {
       console.log(error);

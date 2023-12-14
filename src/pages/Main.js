@@ -2,13 +2,11 @@ import useDebounce from "../hooks/debounce.js";
 import React, {useContext, useState, useEffect} from 'react'
 import SimpleSidebar from "../components/SimpleSidebar.js";
 import Post from "../components/Post.js";
-import {IdContext} from "../Context.js";
 import { Input } from '@chakra-ui/react'
 import axios from 'axios';
 const BASE_URL="http://localhost:1999/api/v1"
 
 function Main() {
-  const {id, setId, token} = useContext(IdContext);
   const [search, setSearch] = useState("");
   const [searchedUser, setSearchedUser] = useState([]);
   const debounceSearch = useDebounce(search, 500);
@@ -23,10 +21,11 @@ function Main() {
       setSearchedUser(response.data.data);
     }
     if(debounceSearch)f();
+    // console.log(token);
     const getPost = async() =>{
       const response = await axios.get(BASE_URL+"/getPosts", {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer `,
           'Content-Type': 'application/json',
         },
       });

@@ -1,4 +1,4 @@
-import './App.css';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login.js";
 import Signup from "./pages/Signup.js";
@@ -8,7 +8,6 @@ import Create from "./pages/Create.js";
 
 function App() {
   return (
-    <>
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -18,7 +17,6 @@ function App() {
           <Route path="/createPost" element={<Create />} />
         </Routes>
       </Router>
-    </>
   );
 }
 
