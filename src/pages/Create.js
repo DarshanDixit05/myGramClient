@@ -39,7 +39,7 @@ function Create(){
       
       const response = await axios.post(
         BASE_URL + "/createPost",
-        formData,
+        {formData},
         {
           headers: {
             Authorization: `Bearer ${token}`,

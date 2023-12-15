@@ -18,6 +18,7 @@ function Main() {
   const handleClick = () =>{
     navigate("/createPost");
   }
+
   useEffect(() => {
     const f = async()=>{
       const response = await axios.get(BASE_URL+"/searchUser", {
@@ -28,7 +29,7 @@ function Main() {
       setSearchedUser(response.data.data);
     }
     if(debounceSearch)f();
-    console.log(token);
+
     const getPost = async() =>{
       const response = await axios.get(BASE_URL+"/getPosts", {
         headers: {
@@ -48,7 +49,7 @@ function Main() {
           <Input id="search_bar" placeholder='Search User' onChange={(e)=>setSearch(e.target.value)}/>
         </div>
         <div>
-          <Button colorScheme="black" onClick={handleClick}>
+          <Button colorScheme="teal" onClick={handleClick}>
             Create
           </Button>
         </div>
