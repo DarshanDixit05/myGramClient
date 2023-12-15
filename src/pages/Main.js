@@ -1,16 +1,23 @@
+import {useNavigate} from "react-router-dom";
 import useDebounce from "../hooks/debounce.js";
 import React, {useContext, useState, useEffect} from 'react'
 import SimpleSidebar from "../components/SimpleSidebar.js";
 import Post from "../components/Post.js";
-import { Input } from '@chakra-ui/react'
+import { Input, Button } from '@chakra-ui/react'
+import {UserContext} from "../Contexts/UserContext.js";
 import axios from 'axios';
 const BASE_URL="http://localhost:1999/api/v1"
 
 function Main() {
+  const navigate = useNavigate();
+  const {token} = useContext(UserContext);
   const [search, setSearch] = useState("");
   const [searchedUser, setSearchedUser] = useState([]);
   const debounceSearch = useDebounce(search, 500);
 
+  const handleClick = () =>{
+    navigate("/createPost");
+  }
   useEffect(() => {
     const f = async()=>{
       const response = await axios.get(BASE_URL+"/searchUser", {
@@ -21,11 +28,11 @@ function Main() {
       setSearchedUser(response.data.data);
     }
     if(debounceSearch)f();
-    // console.log(token);
+    console.log(token);
     const getPost = async() =>{
       const response = await axios.get(BASE_URL+"/getPosts", {
         headers: {
-          'Authorization': `Bearer `,
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
@@ -39,6 +46,11 @@ function Main() {
       <div id="main_right_container">
         <div id="main_searcn_section">
           <Input id="search_bar" placeholder='Search User' onChange={(e)=>setSearch(e.target.value)}/>
+        </div>
+        <div>
+          <Button colorScheme="black" onClick={handleClick}>
+            Create
+          </Button>
         </div>
         {searchedUser.length>0 && search !== "" ? (
           <div class="user-container" id="user_container">

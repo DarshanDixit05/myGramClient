@@ -26,6 +26,7 @@ import {
 } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 import { ReactText } from 'react'
+import {useNavigate} from "react-router-dom";
 
 interface LinkItemProps {
     name: string;
@@ -42,6 +43,7 @@ const LinkItems: Array<LinkItemProps> = [
 ]
 
 export default function SimpleSidebar() {
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Box minH="100vh"  maxW="19vw" bg={useColorModeValue('white.100', 'white.900')}>

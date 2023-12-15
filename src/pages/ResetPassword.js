@@ -15,10 +15,12 @@ import {
     Stack,
     Text,
   } from '@chakra-ui/react'
+import {UserContext} from "../Contexts/UserContext.js";
 import axios from 'axios';
 const BASE_URL="http://localhost:1999/api/v1"
 
 const ResetPassword = () => {
+    const {forgotPasswordToken} = useContext(UserContext);
     const navigate = useNavigate();
     const [newPassword , setNewPassword] = useState();
     const handleInputData = (e) =>{
@@ -26,17 +28,17 @@ const ResetPassword = () => {
         setNewPassword(e.target.value);
     }
     const handleSubmit = async(e) =>{
-        // if(!forgotPasswordToken){
-        //     alert("Session expired log in again.")
-        //     return;
-        // }
-        // try {
-        //     const response = await axios.post(BASE_URL+"/resetPassword"+"/"+forgotPasswordToken, {newPassword});
-        //     console.log(response);
-        //     navigate("/login");
-        // } catch (error) {
-        //     console.log(error);
-        // }
+        if(!forgotPasswordToken){
+            alert("Session expired log in again.")
+            return;
+        }
+        try {
+            const response = await axios.post(BASE_URL+"/resetPassword"+"/"+forgotPasswordToken, {newPassword});
+            console.log(response);
+            navigate("/login");
+        } catch (error) {
+            console.log(error);
+        }
     }
   return (
 <Container

@@ -2,6 +2,7 @@ import React, { useState , useContext, useEffect} from 'react';
 import { Flex, Heading, Input, Textarea, Button, FormControl, FormLabel } from '@chakra-ui/react';
 import { initializeApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import {UserContext} from "../Contexts/UserContext.js";
 import axios from 'axios';
 const BASE_URL="http://localhost:1999/api/v1"
 
@@ -18,6 +19,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const storage = getStorage(firebaseApp);
 
 function Create(){
+  const {token} = useContext(UserContext);
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -40,7 +42,7 @@ function Create(){
         formData,
         {
           headers: {
-            Authorization: `Bearer `,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
@@ -55,10 +57,10 @@ function Create(){
   };
   
   useEffect(() => {
-    // console.log(token);
-    // if (token !== null && loading) {
-    //   handlePostCreation();
-    // }
+    console.log(token);
+    if (token !== null && loading) {
+      handlePostCreation();
+    }
   }, [ loading]);
 
   const handleSubmit = (e) => {
