@@ -13,6 +13,7 @@ function Main() {
   const {token} = useContext(UserContext);
   const [search, setSearch] = useState("");
   const [searchedUser, setSearchedUser] = useState([]);
+  const [post, setPost] = useState([]);
   const debounceSearch = useDebounce(search, 500);
 
   const handleClick = () =>{
@@ -37,6 +38,8 @@ function Main() {
           'Content-Type': 'application/json',
         },
       });
+      console.log(response.data.data);
+      setPost(response.data.data)
     }
     getPost();
   }, [debounceSearch])
@@ -47,11 +50,11 @@ function Main() {
       <div id="main_right_container">
         <div id="main_searcn_section">
           <Input id="search_bar" placeholder='Search User' onChange={(e)=>setSearch(e.target.value)}/>
-        </div>
-        <div>
-          <Button colorScheme="teal" onClick={handleClick}>
-            Create
-          </Button>
+          <div>
+            <Button colorScheme="grey" variant="outline" onClick={handleClick}>
+              Create Post
+            </Button>
+          </div>
         </div>
         {searchedUser.length>0 && search !== "" ? (
           <div class="user-container" id="user_container">
@@ -66,7 +69,11 @@ function Main() {
         <div id="right-feed-section">
           {/* username, profile_image, image, caption, likeCount, commentscount */}
           <div id="content-section">
-            <Post />
+              {post?.map((ele)=>(
+                <div class="post-container">
+                  <Post username={ele?.username} profile_image={ele?.profileImage} image={ele?.image} caption={ele?.caption} likeCount={ele?.likes?.length} commentscount={ele?.comments?.length}/>
+                </div>
+              ))}
           </div>
         </div>
       </div>
