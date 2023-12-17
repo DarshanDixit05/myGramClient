@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useContext} from 'react'
 import { Input, Card, CardHeader, CardBody, CardFooter,Flex,Avatar,Box,Heading,Text,IconButton,Image, Button, 
 } from '@chakra-ui/react'
 import {
@@ -7,9 +7,35 @@ import {
     FiNavigation,
     FiMoreVertical
 } from 'react-icons/fi'
+import {UserContext} from "../Contexts/UserContext.js";
+import axios from 'axios';
+const BASE_URL="http://localhost:1999/api/v1"
 
 function Post(props) {
-    console.log(props);
+    const {token} = useContext(UserContext);
+    const [likeToggle, setLikeToggle] = useState(false);
+    const handleLikeClick = async(e) =>{
+        e.preventDefault();
+        // if(!likeToggle){
+        //     const response = await axios.post(BASE_URL+"/addLike"+"/"+props.postId, {
+        //         headers: {
+        //             'Authorization': `Bearer ${token}`,
+        //             'Content-Type': 'application/json',
+        //           },
+        //     });
+        //     console.log(response);
+        // }else{
+        //     const response = await axios.post(BASE_URL+"/removeLike"+"/"+props.postId, {
+        //         headers: {
+        //             'Authorization': `Bearer ${token}`,
+        //             'Content-Type': 'application/json',
+        //           },
+        //     });
+        //     console.log(response);
+        // }
+        setLikeToggle(!likeToggle);
+    }
+
   return (
     <Card maxW='md'>
     <CardHeader pt="1" pb="1">
@@ -29,12 +55,13 @@ function Post(props) {
         </Flex>
     </CardHeader>
     <Image
+    boxSize='350px'
         objectFit='cover'
         src={props.image}
         alt='Chakra UI'
     />
     <CardBody pt="1" pb="1">
-        <Button flex='1' pl="0" mt='0' variant='ghost' leftIcon={<FiHeart />}>
+        <Button onClick={handleLikeClick} flex='1' pl="0" mt='0' variant='ghost' leftIcon={<FiHeart style={{ fill: likeToggle ? 'red' : 'white' }} color={likeToggle ? 'red' : 'black'}/>}>
         </Button>
         <Button flex='1' mt='0' variant='ghost' leftIcon={<FiMessageCircle />}>
         </Button>

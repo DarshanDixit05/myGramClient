@@ -38,7 +38,7 @@ function Main() {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setPost(response.data.data)
     }
     getPost();
@@ -71,7 +71,7 @@ function Main() {
           <div id="content-section">
               {post?.map((ele)=>(
                 <div class="post-container">
-                  <Post username={ele?.username} profile_image={ele?.profileImage} image={ele?.image} caption={ele?.caption} likeCount={ele?.likes?.length} commentscount={ele?.comments?.length}/>
+                  <Post username={ele?.username} profile_image={ele?.profileImage} image={ele?.image} caption={ele?.caption} likeCount={ele?.likes?.length} commentscount={ele?.comments?.length} postId={ele?._id}/>
                 </div>
               ))}
           </div>
